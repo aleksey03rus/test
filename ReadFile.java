@@ -1,15 +1,16 @@
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ReadFile {
-    private static ArrayList<String> inputFromFile(String arg) throws IOException {
-        ArrayList<String> arr = new ArrayList<>();
+    private static List<String> inputFromFile(String arg) throws IOException {
+        List<String> arr = new ArrayList<>();
         File f = new File(arg);
-        if (!f.exists()){
+        if (!f.exists()) {
             throw new IOException("file not found");
         }
-        if (f.length()==0){
+        if (f.length() == 0) {
             throw new IOException("file is empty");
         }
         BufferedReader br = null;
@@ -25,18 +26,19 @@ public class ReadFile {
         return arr;
     }
 
-    private static void outputInFile(String outputFile, Comparable[] array) throws IOException{
-        PrintWriter printWriter= new PrintWriter(new FileWriter(outputFile));
-        for (int i = 0; i <array.length ; i++) {
+    private static void outputInFile(String outputFile, Comparable[] array) throws IOException {
+        PrintWriter printWriter = new PrintWriter(new FileWriter(outputFile));
+        for (int i = 0; i < array.length; i++) {
             printWriter.println(array[i]);
         }
         printWriter.close();
     }
-    private static void insertSort(String directSort, Comparable[] array){
 
-        for (int i = 0; i <array.length ; i++) {
-            Comparable tmp= array[i];
-            int j=i-1;
+    private static void insertSort(String directSort, Comparable[] array) {
+
+        for (int i = 0; i < array.length; i++) {
+            Comparable tmp = array[i];
+            int j = i - 1;
             while (j >= 0 && (("-a".equals(directSort) && (array[j]).compareTo(tmp) > 0) || ("-d".equals(directSort) && (array[j]).compareTo(tmp) < 0))) {
                 array[j + 1] = array[j];
                 j--;
@@ -50,12 +52,12 @@ public class ReadFile {
             if (args.length < 4) {
                 throw new IllegalArgumentException("Должно быть указано 4 параметра");
             }
-            ArrayList<String> arr = inputFromFile(args[0]);
+            List<String> arr = inputFromFile(args[0]);
 
             if (!("-a".equals(args[3]) || "-d".equals(args[3]))) {
                 throw new Exception("Error in 4 parameter");
             }
-            Comparable[] array =null;
+            Comparable[] array = null;
             if (args[2].equals("-i")) {
                 array = new Integer[arr.size()];
                 try {
@@ -66,7 +68,7 @@ public class ReadFile {
                     throw new NumberFormatException("Not a number in file");
                 }
             } else if (args[2].equals("-s")) {
-                 array = new String[arr.size()];
+                array = new String[arr.size()];
                 for (int i = 0; i < arr.size(); i++) {
                     array[i] = String.valueOf(arr.get(i));
                 }
